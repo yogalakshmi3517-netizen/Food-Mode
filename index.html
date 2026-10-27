@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Mode — Smart Food Discovery</title>
+  <meta name="description" content="Food Mode smart food discovery and ordering website">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="Food Mode home">
+      <span class="brand-mark">✦</span>
+      <span>Food <span>Mode</span></span>
+    </a>
+    <nav class="desktop-nav">
+      <a href="#home">Home</a>
+      <a href="#explore">Explore</a>
+      <a href="#builder">Build My Meal</a>
+      <a href="#favorites">Favorites</a>
+      <a href="#orders">Orders</a>
+    </nav>
+    <button type="button" class="cart-pill" id="cartBtn">🛒 <span>Cart</span><b id="cartCount">0</b></button>
+    <button type="button" class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">SMART FOOD DISCOVERY</div>
+        <h1>Your mood.<br><em>Your choice.</em><br>Your perfect meal.</h1>
+        <p>Tell Food Mode how you feel, what you like and how much you want to spend. We'll find a meal that fits.</p>
+        <div class="hero-search">
+          <span>⌕</span>
+          <input id="heroSearch" placeholder="What are you craving today?" autocomplete="off">
+          <button type="button" id="heroSearchBtn">Find Food</button>
+        </div>
+        <div class="hero-stats">
+          <div><strong>30+</strong><span>Food choices</span></div>
+          <div><strong>6</strong><span>Mood matches</span></div>
+          <div><strong>100%</strong><span>Personalized</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="food-orb main-orb">🍜</div>
+        <div class="floating-card fc-one"><span>🔥</span><div><b>Spicy Mood</b><small>92% match</small></div></div>
+        <div class="floating-card fc-two"><span>🥗</span><div><b>Healthy Pick</b><small>89% match</small></div></div>
+        <div class="floating-card fc-three"><span>🍕</span><div><b>Comfort Food</b><small>96% match</small></div></div>
+      </div>
+    </section>
+
+    <section class="mood-strip">
+      <div class="section-head compact">
+        <div><span class="eyebrow">HOW ARE YOU FEELING?</span><h2>Pick your mood.</h2></div>
+        <span class="hint">Food Mode will do the matching.</span>
+      </div>
+      <div class="mood-grid" id="moodGrid">
+        <button type="button" class="mood-card" data-mood="hungry"><span>😋</span><b>Super Hungry</b><small>Big & filling</small></button>
+        <button type="button" class="mood-card" data-mood="spicy"><span>🌶️</span><b>Spicy Mood</b><small>Bring the heat</small></button>
+        <button type="button" class="mood-card" data-mood="comfort"><span>🍕</span><b>Comfort Food</b><small>Feel-good bites</small></button>
+        <button type="button" class="mood-card" data-mood="healthy"><span>🥗</span><b>Healthy Choice</b><small>Fresh & balanced</small></button>
+        <button type="button" class="mood-card" data-mood="sweet"><span>🍰</span><b>Sweet Craving</b><small>Something delightful</small></button>
+        <button type="button" class="mood-card" data-mood="budget"><span>💰</span><b>Budget Friendly</b><small>Good food, less spend</small></button>
+      </div>
+    </section>
+
+    <section id="explore" class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">DISCOVER</span><h2>Food that fits your moment.</h2></div>
+        <button type="button" class="text-btn" id="viewAllBtn">View all →</button>
+      </div>
+      <div class="toolbar">
+        <div class="search-box"><span>⌕</span><input id="foodSearch" placeholder="Search food by name..."></div>
+        <div class="chips" id="categoryChips">
+          <button type="button" class="chip active" data-category="All">All</button>
+          <button type="button" class="chip" data-category="South Indian">South Indian</button>
+          <button type="button" class="chip" data-category="North Indian">North Indian</button>
+          <button type="button" class="chip" data-category="Chinese">Chinese</button>
+          <button type="button" class="chip" data-category="Fast Food">Fast Food</button>
+          <button type="button" class="chip" data-category="Desserts">Desserts</button>
+          <button type="button" class="chip" data-category="Beverages">Beverages</button>
+          <button type="button" class="chip" data-category="Healthy Food">Healthy</button>
+        </div>
+      </div>
+      <div class="food-grid" id="foodGrid"></div>
+      <div id="noResults" class="empty-state hidden"><div>🍽️</div><h3>Nothing matched that craving.</h3><p>Try another food name or category.</p></div>
+    </section>
+
+    <section id="builder" class="builder-section">
+      <div class="builder-copy">
+        <span class="eyebrow">YOUR PERSONAL FOOD MATCH</span>
+        <h2>Build My Meal<span>.</span></h2>
+        <p>Six simple choices. One personalized recommendation. No endless scrolling.</p>
+        <div class="builder-progress"><span id="builderProgress"></span></div>
+      </div>
+      <div class="builder-panel">
+        <div class="builder-step active">
+          <span class="step-no">01</span><h3>What's your mood?</h3>
+          <div class="option-grid" data-key="mood">
+            <button type="button" data-value="hungry">😋 Hungry</button><button type="button" data-value="spicy">🌶️ Spicy</button>
+            <button type="button" data-value="healthy">🥗 Healthy</button><button type="button" data-value="comfort">🍕 Comfort</button>
+            <button type="button" data-value="sweet">🍰 Sweet</button><button type="button" data-value="budget">💰 Budget</button>
+          </div>
+        </div>
+        <div class="builder-step">
+          <span class="step-no">02</span><h3>Veg or non-veg?</h3>
+          <div class="option-grid two" data-key="diet">
+            <button type="button" data-value="Veg">🌿 Vegetarian</button><button type="button" data-value="Non-Veg">🍗 Non-Vegetarian</button><button type="button" data-value="Any">✨ Any</button>
+          </div>
+        </div>
+        <div class="builder-step">
+          <span class="step-no">03</span><h3>What sounds good?</h3>
+          <div class="option-grid" data-key="category">
+            <button type="button" data-value="Indian">🇮🇳 Indian</button><button type="button" data-value="Chinese">🥡 Chinese</button>
+            <button type="button" data-value="Fast Food">🍔 Fast Food</button><button type="button" data-value="Dessert">🍰 Dessert</button>
+            <button type="button" data-value="Healthy">🥗 Healthy</button><button type="button" data-value="Any">✨ Anything</button>
+          </div>
+        </div>
+        <div class="builder-step">
+          <span class="step-no">04</span><h3>What's your budget?</h3>
+          <div class="option-grid two" data-key="budget">
+            <button type="button" data-value="100">Under ₹100</button><button type="button" data-value="200">₹100–₹200</button>
+            <button type="button" data-value="300">₹200–₹300</button><button type="button" data-value="301">₹300+</button>
+          </div>
+        </div>
+        <div class="builder-step">
+          <span class="step-no">05</span><h3>How hungry are you?</h3>
+          <div class="option-grid three" data-key="hunger">
+            <button type="button" data-value="light">Light</button><button type="button" data-value="medium">Medium</button><button type="button" data-value="very">Very Hungry</button>
+          </div>
+        </div>
+        <div class="builder-step">
+          <span class="step-no">06</span><h3>How quickly?</h3>
+          <div class="option-grid three" data-key="time">
+            <button type="button" data-value="15">Under 15 min</button><button type="button" data-value="30">Under 30 min</button><button type="button" data-value="any">Any time</button>
+          </div>
+        </div>
+        <div class="builder-actions">
+          <button type="button" class="secondary-btn" id="builderBack">Back</button>
+          <button type="button" class="primary-btn" id="builderNext">Next →</button>
+        </div>
+      </div>
+      <div class="match-result hidden" id="matchResult">
+        <div class="match-intro"><span class="eyebrow">YOUR FOOD MODE RESULT</span><h3>We found your match.</h3><p>Based on your choices, this meal fits your moment.</p></div>
+        <div id="matchCards" class="match-cards"></div>
+        <button type="button" class="secondary-btn" id="rebuildBtn">↻ Build again</button>
+      </div>
+    </section>
+
+    <section class="combo-section section">
+      <div class="combo-card">
+        <div class="combo-emoji">🍱</div>
+        <div class="combo-copy"><span class="eyebrow">ONE-CLICK IDEA</span><h2>Smart Combo</h2><p>Let Food Mode create a main dish, side and drink that work together.</p></div>
+        <div class="combo-result" id="comboResult"><div><small>Today's combo</small><b>Spicy Street Feast</b><span>🍜 Noodles + 🥟 Momos + 🥤 Lime Soda</span></div><strong>₹290</strong></div>
+        <button type="button" class="primary-btn" id="comboBtn">Add Entire Combo</button>
+      </div>
+    </section>
+
+    <section class="offers section">
+      <div class="section-head compact"><div><span class="eyebrow">GOOD DEALS</span><h2>A little extra happiness.</h2></div></div>
+      <div class="offer-grid">
+        <button type="button" class="offer-card offer-a" data-offer="50"><span>FIRST ORDER</span><strong>₹50 OFF</strong><small>Use code GOOD50</small></button>
+        <button type="button" class="offer-card offer-b" data-offer="free"><span>DELIVERY DAY</span><strong>FREE DELIVERY</strong><small>On orders above ₹299</small></button>
+        <button type="button" class="offer-card offer-c" data-offer="combo"><span>WEEKEND</span><strong>SMART COMBO</strong><small>Save more with a combo</small></button>
+      </div>
+    </section>
+
+    <section id="favorites" class="section">
+      <div class="section-head"><div><span class="eyebrow">SAVED FOR LATER</span><h2>Your favorites.</h2></div></div>
+      <div id="favoritesGrid" class="food-grid"></div>
+      <div id="favoritesEmpty" class="empty-state"><div>♡</div><h3>Your favorites are waiting.</h3><p>Tap the heart on any food you love.</p></div>
+    </section>
+
+    <section id="orders" class="section orders-section">
+      <div class="section-head"><div><span class="eyebrow">YOUR JOURNEY</span><h2>Order tracking.</h2></div></div>
+      <div id="orderArea" class="order-empty"><div>🛵</div><h3>No recent orders</h3><p>Your placed order will appear here.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><span class="brand-mark">✦</span><b>Food Mode</b><p>Your mood. Your choice. Your perfect meal.</p></div>
+    <div><b>Explore</b><a href="#explore">Food</a><a href="#builder">Build My Meal</a><a href="#favorites">Favorites</a></div>
+    <div><b>Project</b><span>HTML5</span><span>CSS3</span><span>Vanilla JavaScript</span></div>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="overlay" id="cartOverlay"></div>
+  <aside class="drawer" id="cartDrawer">
+    <div class="drawer-head"><div><span class="eyebrow">YOUR BAG</span><h2>Cart</h2></div><button type="button" class="close-btn" id="closeCart">×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div id="cartEmpty" class="cart-empty"><div>🛒</div><h3>Your cart is empty</h3><p>Discover your perfect meal and add it here.</p><button type="button" class="primary-btn" id="cartExplore">Explore Food</button></div>
+    <div class="cart-summary" id="cartSummary">
+      <div><span>Subtotal</span><b id="subtotal">₹0</b></div>
+      <div><span>Delivery</span><b id="delivery">₹0</b></div>
+      <div class="grand"><span>Total</span><b id="grandTotal">₹0</b></div>
+      <button type="button" class="primary-btn wide" id="checkoutBtn">Review & Checkout →</button>
+      <button type="button" class="clear-btn" id="clearCart">Clear cart</button>
+    </div>
+  </aside>
+
+  <!-- Food details modal -->
+  <div class="modal-backdrop" id="foodModal">
+    <div class="modal">
+      <button type="button" class="close-btn modal-close" data-close="foodModal">×</button>
+      <div id="foodDetail"></div>
+    </div>
+  </div>
+
+  <!-- Checkout modal -->
+  <div class="modal-backdrop" id="checkoutModal">
+    <div class="modal checkout-modal">
+      <button type="button" class="close-btn modal-close" data-close="checkoutModal">×</button>
+      <span class="eyebrow">ALMOST THERE</span>
+      <h2>Review your order.</h2>
+      <div id="checkoutSummary" class="checkout-summary"></div>
+      <form id="checkoutForm">
+        <div class="form-grid"><label>Customer name<input id="customerName" required placeholder="Your name"></label><label>Mobile number<input id="customerPhone" required pattern="[0-9]{10}" placeholder="10-digit number"></label></div>
+        <label>Delivery address<textarea id="customerAddress" required placeholder="House / street / area"></textarea></label>
+        <label>Email <span>(optional)</span><input id="customerEmail" type="email" placeholder="you@example.com"></label>
+        <p class="form-error" id="formError"></p>
+        <button class="primary-btn wide" type="submit">Place Order 🎉</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
